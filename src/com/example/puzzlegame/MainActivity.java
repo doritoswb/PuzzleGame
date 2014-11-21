@@ -41,9 +41,26 @@ public class MainActivity extends BaseActivity implements OnClickListener{
 	}
 	
 	@Override
+	protected void onStart(){
+		super.onStart();
+		PuzzleGameApplication application = (PuzzleGameApplication)this.getApplication();
+		if(!application.isUserDataFileExist())
+	    {
+	    	resumeGame.setVisibility(View.GONE);
+	    }
+	}
+	
+	@Override
 	public void onClick(View v){
 		switch(v.getId()){
 			case R.id.resume_game:{
+				PuzzleGameApplication application = (PuzzleGameApplication)this.getApplication();
+				UserData data = application.loadUserData();
+				if(data != null){
+					Intent intentGame = new Intent(this, PuzzleGameActivity.class);
+					intentGame.putExtra("imagePath", data.getImagePath());
+					startActivity(intentGame);
+				}
 				break;
 			}
 			case R.id.new_game:{
@@ -56,4 +73,10 @@ public class MainActivity extends BaseActivity implements OnClickListener{
 			}
 		}
 	}
+	
+	@Override  
+    public void onBackPressed() {  
+        this.finishAll(); 
+        super.onBackPressed();  
+    }
 }

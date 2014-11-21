@@ -47,6 +47,9 @@ public class SelectImageActivity extends BaseActivity implements OnClickListener
 	        startActivityForResult(intent, 0); 
 			break;
 		case R.id.start:
+			PuzzleGameApplication application = (PuzzleGameApplication) this.getApplication();
+			application.setLevel(1);
+			
 			Intent intentGame = new Intent(this, PuzzleGameActivity.class);
 			intentGame.putExtra("imagePath", imagePath);
 			startActivity(intentGame);

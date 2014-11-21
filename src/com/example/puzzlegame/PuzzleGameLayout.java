@@ -24,7 +24,7 @@ import android.widget.Toast;
 
 public class PuzzleGameLayout extends RelativeLayout implements OnClickListener{
 	
-	private int column = 3;
+	private int column;
 	
 	private int width;
 	private int padding;
@@ -80,6 +80,12 @@ public class PuzzleGameLayout extends RelativeLayout implements OnClickListener{
     
     public void initialize(){    	
     	if(!once){
+        	PuzzleGameActivity activity = (PuzzleGameActivity)getContext();
+        	PuzzleGameApplication application = (PuzzleGameApplication)activity.getApplication();
+        	
+        	int level = application.getLevel();
+        	column = level + 2;
+    		
     		initImagePieces();
     		initItems();
     		once = true;
@@ -122,8 +128,6 @@ public class PuzzleGameLayout extends RelativeLayout implements OnClickListener{
     		}
     	});
     }
-    
-    
     
     private void initItems(){
     	
@@ -297,17 +301,20 @@ public class PuzzleGameLayout extends RelativeLayout implements OnClickListener{
     } 
     
     private void nextLevel(){
-    	column = column + 1;
     	once = false;
     	this.removeAllViews();
     	if(animateLayer != null){
     		this.addView(animateLayer);
     	}
     	
-    	PuzzleGameActivity activity = (PuzzleGameActivity)getContext();	
-    	int level = activity.getLevel();
+    	PuzzleGameActivity activity = (PuzzleGameActivity)getContext();
+    	PuzzleGameApplication application = (PuzzleGameApplication)activity.getApplication();
+    	
+    	int level = application.getLevel();
     	level++;
-    	activity.setLevel(level);
+    	application.setLevel(level);
+ 
+    	application.saveUserData();
     	
     	TextView textView = (TextView) activity.findViewById(R.id.level);
     	textView.setText("Level " + level);
