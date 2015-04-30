@@ -19,6 +19,7 @@ public class MainActivity extends BaseActivity implements OnClickListener{
 	private GifView exampleGif;
 	private Button resumeGame;
 	private Button newGame;
+	private int count = 0;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
