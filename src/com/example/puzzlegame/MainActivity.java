@@ -20,6 +20,7 @@ public class MainActivity extends BaseActivity implements OnClickListener{
 	private Button resumeGame;
 	private Button newGame;
 	private int count = 0;
+	private int count1 = 0;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
